@@ -5,6 +5,10 @@ import { AuthProvider } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
 import Admin from "./pages/Admin";
 import PrivateRoute from "./components/PrivateRoute";
+import AddBook from "./pages/admin/AddBook";
+import Catalog from "./pages/admin/Catalog";
+import Customers from "./pages/admin/Customers";
+import Restock from "./pages/admin/Restock";
 
 function App() {
   return (
@@ -19,6 +23,38 @@ function App() {
             element={
               <PrivateRoute adminOnly>
                 <Admin />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/add-book"
+            element={
+              <PrivateRoute adminOnly>
+                <AddBook />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/catalog"
+            element={
+              <PrivateRoute adminOnly>
+                <Catalog />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/customers"
+            element={
+              <PrivateRoute adminOnly>
+                <Customers />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/restock"
+            element={
+              <PrivateRoute adminOnly>
+                <Restock />
               </PrivateRoute>
             }
           />
