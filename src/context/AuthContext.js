@@ -16,10 +16,14 @@ export function AuthProvider({ children }) {
       if (user) {
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
-  
+
         if (docSnap.exists()) {
           const userData = docSnap.data();
-          setCurrentUser({ ...user, role: userData.role });
+          setCurrentUser({
+            uid: user.uid,
+            email: user.email,
+            role: userData.role,
+          });
         } else {
           setCurrentUser({ ...user, role: "customer" }); // fallback, just in case
         }
@@ -27,7 +31,7 @@ export function AuthProvider({ children }) {
         setCurrentUser(null);
       }
     });
-  
+
     return unsub;
   }, []);
 
