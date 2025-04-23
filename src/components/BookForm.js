@@ -9,13 +9,21 @@ export default function BookForm() {
   const [price, setPrice] = useState("");
   const [isbn, setIsbn] = useState("");
   const [category, setCategory] = useState("");
+  const [stock, setStock] = useState(0);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       // uses factory to build the book object
-      const newBook = createBook({ title, author, price, isbn, category });
+      const newBook = createBook({
+        title,
+        author,
+        price,
+        isbn,
+        category,
+        stock,
+      });
 
       await addDoc(collection(db, "books"), newBook);
 
@@ -41,14 +49,16 @@ export default function BookForm() {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         required
-      /><br />
+      />
+      <br />
       <input
         type="text"
         placeholder="Author"
         value={author}
         onChange={(e) => setAuthor(e.target.value)}
         required
-      /><br />
+      />
+      <br />
       <input
         type="number"
         step="0.01"
@@ -56,19 +66,31 @@ export default function BookForm() {
         value={price}
         onChange={(e) => setPrice(e.target.value)}
         required
-      /><br />
+      />
+      <br />
       <input
         type="text"
         placeholder="ISBN"
         value={isbn}
         onChange={(e) => setIsbn(e.target.value)}
-      /><br />
+      />
+      <br />
       <input
         type="text"
         placeholder="Category"
         value={category}
         onChange={(e) => setCategory(e.target.value)}
-      /><br />
+      />
+      <br />
+      <input
+        type="number"
+        placeholder="Stock"
+        value={stock}
+        onChange={(e) => setStock(e.target.value)}
+        required
+      />
+      <br />
+
       <button type="submit">Add Book</button>
     </form>
   );
