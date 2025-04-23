@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
+import { deleteDoc, doc } from "firebase/firestore";
 
 export default function Catalog() {
   const [books, setBooks] = useState([]);
@@ -34,6 +35,21 @@ export default function Catalog() {
       if (sortBy === "author") return a.author.localeCompare(b.author);
       return 0;
     });
+
+    const handleDelete = async (id) => {
+        const confirm = window.confirm("Are you sure you want to delete this book?");
+        if (!confirm) return;
+      
+        try {
+          await deleteDoc(doc(db, "books", id));
+          setBooks((prev) => prev.filter((book) => book.id !== id));
+          alert("Book deleted.");
+        } catch (error) {
+          console.error("Error deleting book:", error);
+          alert("Failed to delete book");
+        }
+      };
+      
 
   return (
     <div style={{ padding: "2rem" }}>
@@ -70,7 +86,7 @@ export default function Catalog() {
             <p><strong>Price:</strong> ${book.price}</p>
             <p><strong>Category:</strong> {book.category}</p>
             <p><strong>ISBN:</strong> {book.isbn}</p>
-            {/* TODO: add Edit/Delete */}
+            <button onClick={() => handleDelete(book.id)}>🗑</button>
           </div>
         ))}
       </div>
