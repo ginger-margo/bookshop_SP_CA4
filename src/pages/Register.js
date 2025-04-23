@@ -2,16 +2,26 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+
+      await setDoc(doc(db, "users", res.user.uid), {
+        uid: res.user.uid,
+        email,
+        role: isAdmin ? "admin" : "customer",
+      });
+
       navigate("/login");
     } catch (error) {
       alert(error.message);
@@ -26,13 +36,24 @@ export default function Register() {
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-      /><br />
+      />
+      <br />
       <input
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-      /><br />
+      />
+      <br />
+      <label>
+        <input
+          type="checkbox"
+          checked={isAdmin}
+          onChange={(e) => setIsAdmin(e.target.checked)}
+        />
+        Register as admin
+      </label>
+      <br />
       <button type="submit">Sign Up</button>
     </form>
   );
