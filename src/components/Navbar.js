@@ -23,6 +23,14 @@ export default function Navbar() {
           <Link to="/register">Register</Link>
         </>
       )}
+      {currentUser?.role === "customer" && (
+        <Link to="/books">Browse Books</Link>
+      )}
+      {currentUser && (
+        <>
+          <Link to="/books">Books</Link> | <Link to="/cart">Cart</Link>
+        </>
+      )}
     </nav>
   );
 }
