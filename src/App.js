@@ -8,7 +8,6 @@ import PrivateRoute from "./components/PrivateRoute";
 import AddBook from "./pages/admin/AddBook";
 import Catalog from "./pages/admin/Catalog";
 import Customers from "./pages/admin/Customers";
-import Restock from "./pages/admin/Restock";
 
 function App() {
   return (
@@ -51,10 +50,10 @@ function App() {
             }
           />
           <Route
-            path="/admin/restock"
+            path="/admin/customers"
             element={
               <PrivateRoute adminOnly>
-                <Restock />
+                <Customers />
               </PrivateRoute>
             }
           />

@@ -18,9 +18,6 @@ export default function Admin() {
         <button onClick={() => navigate("/admin/customers")}>
           View Customers & Orders
         </button>
-        <button onClick={() => navigate("/admin/restock")}>
-          Restock
-        </button>
       </div>
     </div>
   );
