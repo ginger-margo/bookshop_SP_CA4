@@ -11,6 +11,7 @@ import Customers from "./pages/admin/Customers";
 import Books from "./pages/customer/Books";
 import { CartProvider } from "./context/CartContext";
 import Cart from "./pages/customer/Cart";
+import Home from "./pages/customer/Home";
 
 function App() {
   return (
@@ -63,6 +64,14 @@ function App() {
             />
             <Route path="/books" element={<Books />} />
             <Route path="/cart" element={<Cart />} />
+            <Route
+              path="/home"
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
+            />
           </Routes>
         </Router>
       </CartProvider>

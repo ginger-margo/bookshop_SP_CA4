@@ -8,7 +8,7 @@ export default function Navbar() {
     <nav style={{ padding: "1rem", borderBottom: "1px solid #ccc" }}>
       {currentUser?.role === "admin" && <Link to="/admin">Admin Panel</Link>}
 
-      <Link to="/">Home</Link>
+      {currentUser?.role === "customer" && <Link to="/home">Home</Link>}
       {" | "}
       {currentUser ? (
         <>
