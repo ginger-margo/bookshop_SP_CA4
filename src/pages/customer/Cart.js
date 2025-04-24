@@ -1,8 +1,40 @@
 import { useCart } from "../../context/CartContext";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../firebase";
 
 export default function Cart() {
   const { cart, removeFromCart, clearCart, totalPrice } = useCart();
+  const { currentUser } = useAuth();
+
+  const handlePlaceOrder = async () => {
+    if (!currentUser) {
+      alert("You must be logged in to place an order");
+      return;
+    }
+
+    if (cart.length === 0) {
+      alert("Cart is empty.");
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "orders"), {
+        userId: currentUser.uid,
+        email: currentUser.email,
+        items: cart,
+        total: totalPrice,
+        createdAt: serverTimestamp(),
+      });
+
+      clearCart();
+      alert("Order placed successfully!");
+    } catch (error) {
+      console.error("Failed to place order:", error);
+      alert("Something went wrong while placing the order");
+    }
+  };
 
   return (
     <div style={{ padding: "2rem" }}>
@@ -35,6 +67,7 @@ export default function Cart() {
           </ul>
 
           <h3>Total: ${totalPrice.toFixed(2)}</h3>
+          <button onClick={handlePlaceOrder}>Place Order</button>
           <button onClick={clearCart}>Clear Cart</button>
         </>
       )}
