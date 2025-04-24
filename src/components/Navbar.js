@@ -6,10 +6,24 @@ export default function Navbar() {
 
   return (
     <nav style={{ padding: "1rem", borderBottom: "1px solid #ccc" }}>
-      {currentUser?.role === "admin" && <Link to="/admin">Admin Panel</Link>}
+      {currentUser?.role === "admin" && (
+        <>
+          <Link to="/admin">Admin Panel</Link>
+          {" | "}
+        </>
+      )}
 
-      {currentUser?.role === "customer" && <Link to="/home">Home</Link>}
-      {" | "}
+      {currentUser?.role === "customer" && (
+        <>
+          <Link to="/home">Home</Link>
+          {" | "}
+          <Link to="/books">Books</Link>
+          {" | "}
+          <Link to="/cart">Cart</Link>
+          {" | "}
+        </>
+      )}
+
       {currentUser ? (
         <>
           <span>👤 {currentUser.email}</span>
@@ -21,14 +35,6 @@ export default function Navbar() {
           <Link to="/login">Login</Link>
           {" | "}
           <Link to="/register">Register</Link>
-        </>
-      )}
-      {currentUser?.role === "customer" && (
-        <Link to="/books">Browse Books</Link>
-      )}
-      {currentUser && (
-        <>
-          <Link to="/books">Books</Link> | <Link to="/cart">Cart</Link>
         </>
       )}
     </nav>
