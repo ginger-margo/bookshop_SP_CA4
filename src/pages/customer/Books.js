@@ -76,7 +76,7 @@ export default function Books() {
             <p><strong>Price:</strong> ${book.price}</p>
             <p><strong>Category:</strong> {book.category}</p>
             <p><strong>Stock:</strong> {book.stock ?? 0}</p>
-            <button onClick={() => addToCart(book)}>🛒 Add to Cart</button>
+            <button onClick={() => addToCart(book)}>Add to Cart</button>
           </div>
         ))}
       </div>

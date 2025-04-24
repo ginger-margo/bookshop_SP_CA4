@@ -1,7 +1,7 @@
 import { useCart } from "../../context/CartContext";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 export default function Cart() {
@@ -20,6 +20,28 @@ export default function Cart() {
     }
 
     try {
+      // Check stock for each item
+      const insufficient = [];
+
+      for (const item of cart) {
+        const bookRef = doc(db, "books", item.id);
+        const bookSnap = await getDoc(bookRef);
+
+        if (!bookSnap.exists()) continue;
+
+        const currentStock = bookSnap.data().stock ?? 0;
+
+        if (currentStock < item.quantity) {
+          insufficient.push(`${item.title} (available: ${currentStock})`);
+        }
+      }
+
+      if (insufficient.length > 0) {
+        alert("Not enough stock for:\n" + insufficient.join("\n"));
+        return;
+      }
+
+      // Create order
       await addDoc(collection(db, "orders"), {
         userId: currentUser.uid,
         email: currentUser.email,
@@ -27,6 +49,17 @@ export default function Cart() {
         total: totalPrice,
         createdAt: serverTimestamp(),
       });
+
+      // Reduce stock for each book
+      for (const item of cart) {
+        const bookRef = doc(db, "books", item.id);
+        const bookSnap = await getDoc(bookRef);
+        const currentStock = bookSnap.data().stock ?? 0;
+
+        await updateDoc(bookRef, {
+          stock: currentStock - item.quantity,
+        });
+      }
 
       clearCart();
       alert("Order placed successfully!");
