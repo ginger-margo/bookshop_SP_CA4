@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
-import "./BookList.css"; 
+import "./BookList.css";
 
 export default function BookList() {
   const [books, setBooks] = useState([]);
@@ -32,11 +32,32 @@ export default function BookList() {
         <div className="book-grid">
           {books.map((book) => (
             <div key={book.id} className="book-card">
+              {book.imageUrl && (
+                <img
+                  src={book.imageUrl}
+                  alt={book.title}
+                  style={{
+                    width: "100%",
+                    maxHeight: "200px",
+                    objectFit: "cover",
+                    marginBottom: "0.5rem",
+                    borderRadius: "4px",
+                  }}
+                />
+              )}
               <h4>{book.title}</h4>
-              <p><strong>Author:</strong> {book.author}</p>
-              <p><strong>Price:</strong> ${book.price}</p>
-              <p><strong>Category:</strong> {book.category}</p>
-              <p><strong>ISBN:</strong> {book.isbn}</p>
+              <p>
+                <strong>Author:</strong> {book.author}
+              </p>
+              <p>
+                <strong>Price:</strong> ${book.price}
+              </p>
+              <p>
+                <strong>Category:</strong> {book.category}
+              </p>
+              <p>
+                <strong>ISBN:</strong> {book.isbn}
+              </p>
             </div>
           ))}
         </div>

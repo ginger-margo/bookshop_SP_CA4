@@ -23,9 +23,10 @@ export default function Books() {
   }, []);
 
   const filteredBooks = books
-    .filter((book) =>
-      book.title.toLowerCase().includes(search.toLowerCase()) ||
-      book.author.toLowerCase().includes(search.toLowerCase())
+    .filter(
+      (book) =>
+        book.title.toLowerCase().includes(search.toLowerCase()) ||
+        book.author.toLowerCase().includes(search.toLowerCase())
     )
     .sort((a, b) => {
       if (sortBy === "price") return a.price - b.price;
@@ -71,11 +72,32 @@ export default function Books() {
               boxShadow: "0 0 5px rgba(0,0,0,0.05)",
             }}
           >
+            {book.imageUrl && (
+              <img
+                src={book.imageUrl}
+                alt={book.title}
+                style={{
+                  width: "100%",
+                  maxHeight: "200px",
+                  objectFit: "cover",
+                  marginBottom: "0.5rem",
+                  borderRadius: "4px",
+                }}
+              />
+            )}
             <h4>{book.title}</h4>
-            <p><strong>Author:</strong> {book.author}</p>
-            <p><strong>Price:</strong> ${book.price}</p>
-            <p><strong>Category:</strong> {book.category}</p>
-            <p><strong>Stock:</strong> {book.stock ?? 0}</p>
+            <p>
+              <strong>Author:</strong> {book.author}
+            </p>
+            <p>
+              <strong>Price:</strong> ${book.price}
+            </p>
+            <p>
+              <strong>Category:</strong> {book.category}
+            </p>
+            <p>
+              <strong>Stock:</strong> {book.stock ?? 0}
+            </p>
             <button onClick={() => addToCart(book)}>Add to Cart</button>
           </div>
         ))}

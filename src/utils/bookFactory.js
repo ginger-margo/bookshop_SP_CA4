@@ -1,5 +1,5 @@
 // Factory Pattern: create a book object from raw input
-export function createBook({ title, author, price, isbn, category, stock = 0 }) {
+export function createBook({ title, author, price, isbn, category, stock = 0, imageUrl }) {
     return {
       title,
       author,
@@ -7,6 +7,7 @@ export function createBook({ title, author, price, isbn, category, stock = 0 }) 
       isbn,
       category,
       stock: parseInt(stock),
+      imageUrl,
       createdAt: new Date(),
     };
   }

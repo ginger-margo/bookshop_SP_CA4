@@ -10,6 +10,7 @@ export default function BookForm() {
   const [isbn, setIsbn] = useState("");
   const [category, setCategory] = useState("");
   const [stock, setStock] = useState(0);
+  const [imageUrl, setImageUrl] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +24,7 @@ export default function BookForm() {
         isbn,
         category,
         stock,
+        imageUrl,
       });
 
       await addDoc(collection(db, "books"), newBook);
@@ -90,7 +92,14 @@ export default function BookForm() {
         required
       />
       <br />
-
+      <input
+        type="text"
+        placeholder="Image URL"
+        value={imageUrl}
+        onChange={(e) => setImageUrl(e.target.value)}
+        required
+      />
+      <br />
       <button type="submit">Add Book</button>
     </form>
   );

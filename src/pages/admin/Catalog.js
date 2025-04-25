@@ -157,6 +157,19 @@ export default function Catalog() {
               </>
             ) : (
               <>
+                {book.imageUrl && (
+                  <img
+                    src={book.imageUrl}
+                    alt={book.title}
+                    style={{
+                      width: "100%",
+                      maxHeight: "200px",
+                      objectFit: "cover",
+                      marginBottom: "0.5rem",
+                      borderRadius: "4px",
+                    }}
+                  />
+                )}
                 <h4>{book.title}</h4>
                 <p>
                   <strong>Author:</strong> {book.author}
