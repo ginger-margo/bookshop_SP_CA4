@@ -100,7 +100,13 @@ export default function Catalog() {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
+    <div
+      style={{
+        padding: "2rem",
+        maxWidth: "960px",
+        margin: "0 auto",
+      }}
+    >
       <h2>Book Catalogue (Admin)</h2>
 
       <input

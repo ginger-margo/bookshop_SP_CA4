@@ -33,11 +33,16 @@ export default function BookDetails() {
       const reviewsSnapshot = await getDocs(
         query(collection(db, "reviews"), where("bookId", "==", id))
       );
-      setReviews(reviewsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      setReviews(
+        reviewsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      );
 
       if (currentUser) {
         const ordersSnapshot = await getDocs(
-          query(collection(db, "orders"), where("userId", "==", currentUser.uid))
+          query(
+            collection(db, "orders"),
+            where("userId", "==", currentUser.uid)
+          )
         );
         const orders = ordersSnapshot.docs.map((doc) => doc.data());
 
@@ -77,10 +82,20 @@ export default function BookDetails() {
   if (!book) return <p>Loading...</p>;
 
   return (
-    <div style={{ padding: "2rem" }}>
+    <div
+      style={{
+        padding: "2rem",
+        maxWidth: "960px",
+        margin: "0 auto",
+      }}
+    >
       <h2>{book.title}</h2>
-      <p><strong>Author:</strong> {book.author}</p>
-      <p><strong>Price:</strong> ${book.price}</p>
+      <p>
+        <strong>Author:</strong> {book.author}
+      </p>
+      <p>
+        <strong>Price:</strong> ${book.price}
+      </p>
       {book.imageUrl && (
         <img
           src={book.imageUrl}
@@ -88,7 +103,9 @@ export default function BookDetails() {
           style={{ width: "200px", marginTop: "1rem" }}
         />
       )}
-      <p><strong>Category:</strong> {book.category}</p>
+      <p>
+        <strong>Category:</strong> {book.category}
+      </p>
 
       <hr />
 
@@ -100,16 +117,20 @@ export default function BookDetails() {
             Rating:
             <select value={rating} onChange={(e) => setRating(e.target.value)}>
               {[1, 2, 3, 4, 5].map((num) => (
-                <option key={num} value={num}>{num}</option>
+                <option key={num} value={num}>
+                  {num}
+                </option>
               ))}
             </select>
-          </label><br />
+          </label>
+          <br />
           <textarea
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             placeholder="Write your review"
             rows="3"
-          /><br />
+          />
+          <br />
           <button type="submit">Submit Review</button>
         </form>
       ) : (

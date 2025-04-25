@@ -11,7 +11,7 @@ export default function Customers() {
       const usersSnapshot = await getDocs(collection(db, "users"));
       const userArray = usersSnapshot.docs.map((doc) => ({
         id: doc.id,
-        uid: doc.id, 
+        uid: doc.id,
         ...doc.data(),
       }));
       setUsers(userArray);
@@ -28,7 +28,13 @@ export default function Customers() {
   }, []);
 
   return (
-    <div style={{ padding: "2rem" }}>
+    <div
+      style={{
+        padding: "2rem",
+        maxWidth: "960px",
+        margin: "0 auto",
+      }}
+    >
       <h2>Customers & Orders</h2>
       <ul style={{ listStyle: "none", padding: 0 }}>
         {users.map((user) => {
@@ -36,9 +42,15 @@ export default function Customers() {
 
           return (
             <li key={user.id} style={{ marginBottom: "2rem" }}>
-              <p><strong>Email:</strong> {user.email}</p>
-              <p><strong>Role:</strong> {user.role}</p>
-              <p><strong>Orders:</strong></p>
+              <p>
+                <strong>Email:</strong> {user.email}
+              </p>
+              <p>
+                <strong>Role:</strong> {user.role}
+              </p>
+              <p>
+                <strong>Orders:</strong>
+              </p>
 
               {userOrders.length === 0 ? (
                 <p>No orders.</p>
@@ -46,8 +58,13 @@ export default function Customers() {
                 <ul>
                   {userOrders.map((order) => (
                     <li key={order.id}>
-                      <p><strong>Date:</strong> {order.createdAt?.toDate().toLocaleString()}</p>
-                      <p><strong>Total:</strong> ${order.total.toFixed(2)}</p>
+                      <p>
+                        <strong>Date:</strong>{" "}
+                        {order.createdAt?.toDate().toLocaleString()}
+                      </p>
+                      <p>
+                        <strong>Total:</strong> ${order.total.toFixed(2)}
+                      </p>
                       <ul>
                         {order.items.map((item, idx) => (
                           <li key={idx}>
