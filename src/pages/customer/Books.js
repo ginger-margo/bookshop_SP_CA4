@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useCart } from "../../context/CartContext";
+import { Link } from "react-router-dom";
 
 export default function Books() {
   const [books, setBooks] = useState([]);
@@ -98,6 +99,7 @@ export default function Books() {
             <p>
               <strong>Stock:</strong> {book.stock ?? 0}
             </p>
+            <Link to={`/books/${book.id}`}>View Details</Link>
             <button onClick={() => addToCart(book)}>Add to Cart</button>
           </div>
         ))}

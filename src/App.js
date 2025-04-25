@@ -12,6 +12,7 @@ import Books from "./pages/customer/Books";
 import { CartProvider } from "./context/CartContext";
 import Cart from "./pages/customer/Cart";
 import Home from "./pages/customer/Home";
+import BookDetails from "./pages/customer/BookDetails";
 
 function AppRoutes() {
   const { currentUser } = useAuth();
@@ -78,6 +79,7 @@ function AppRoutes() {
           </PrivateRoute>
         }
       />
+      <Route path="/books/:id" element={<BookDetails />} />
     </Routes>
   );
 }
