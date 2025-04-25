@@ -1,3 +1,5 @@
+// State Pattern: Manages the dynamic state of the shopping cart and provides global access
+
 import { createContext, useContext, useState } from "react";
 
 const CartContext = createContext();

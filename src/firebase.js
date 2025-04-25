@@ -1,3 +1,5 @@
+// Singleton Pattern: Ensures a single instance of Firebase app and services
+
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";

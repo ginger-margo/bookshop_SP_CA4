@@ -12,7 +12,7 @@ export default function Admin() {
       }}
     >
       <h1>Admin Panel</h1>
-      <p>Choose an action:</p>
+      <p>Select an option:</p>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         <button onClick={() => navigate("/admin/add-book")}>Add Book</button>

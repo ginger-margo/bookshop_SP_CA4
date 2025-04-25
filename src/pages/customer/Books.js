@@ -45,6 +45,7 @@ export default function Books() {
     );
   };
 
+  // Strategy Pattern: Dynamically applies sorting strategy based on user selection
   const filteredBooks = books
     .filter(
       (book) =>
